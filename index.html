@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片展示</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="gallery">
+      <script>
+        // JavaScript 用于动态生成图片列表和处理点击事件
+        window.onload = function () {
+          const gallery = document.querySelector(".gallery");
+          for (let i = 1; i <= 44; i++) {
+            const img = document.createElement("img");
+            img.src = `images/${i}.jpeg`;
+            img.alt = `图片 ${i}`;
+            img.className = "gallery-img";
+
+            const caption = document.createElement("div");
+            caption.className = "caption";
+            caption.textContent = `图片 ${i}`;
+
+            const container = document.createElement("div");
+            container.className = "image-container";
+            container.appendChild(img);
+            container.appendChild(caption);
+            gallery.appendChild(container);
+
+            img.onclick = function () {
+              document.getElementById("modal-img").src = this.src;
+              document.getElementById("modal-caption").textContent = this.alt;
+              document.getElementById("modal").style.display = "block";
+            };
+          }
+        };
+      </script>
+    </div>
+    <!-- 模态框元素 -->
+    <div id="modal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modal-img" />
+      <div id="modal-caption" class="modal-caption"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
