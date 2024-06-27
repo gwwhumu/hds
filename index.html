@@ -7,42 +7,40 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div id="overlay" onclick="toggleZoom()"></div>
     <div class="gallery">
       <script>
-        // JavaScript 用于动态生成图片列表和处理点击事件
         window.onload = function () {
           const gallery = document.querySelector(".gallery");
           for (let i = 1; i <= 44; i++) {
             const img = document.createElement("img");
             img.src = `images/${i}.jpeg`;
             img.alt = `图片 ${i}`;
-            img.className = "gallery-img";
-
+            img.onclick = function () {
+              toggleZoom(this);
+            };
             const caption = document.createElement("div");
             caption.className = "caption";
             caption.textContent = `图片 ${i}`;
-
             const container = document.createElement("div");
             container.className = "image-container";
             container.appendChild(img);
             container.appendChild(caption);
             gallery.appendChild(container);
-
-            img.onclick = function () {
-              document.getElementById("modal-img").src = this.src;
-              document.getElementById("modal-caption").textContent = this.alt;
-              document.getElementById("modal").style.display = "block";
-            };
           }
         };
+
+        function toggleZoom(img) {
+          const overlay = document.getElementById("overlay");
+          if (!overlay.style.backgroundImage) {
+            overlay.style.backgroundImage = `url('${img.src}')`;
+            overlay.style.display = "flex";
+          } else {
+            overlay.style.backgroundImage = "";
+            overlay.style.display = "none";
+          }
+        }
       </script>
     </div>
-    <!-- 模态框元素 -->
-    <div id="modal" class="modal">
-      <span class="close">&times;</span>
-      <img class="modal-content" id="modal-img" />
-      <div id="modal-caption" class="modal-caption"></div>
-    </div>
-    <script src="script.js"></script>
   </body>
 </html>
